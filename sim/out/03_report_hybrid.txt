@@ -1,0 +1,16 @@
+==========================================================================
+STAGE 3b — HYBRID: BLOCKS FOR THE SCALES, ENTRY A FOR THE SINGLES
+==========================================================================
+
+model          Qwen/Qwen3.8-27B
+respondents    9,000 over 17 condition(s)
+block prompts  54,000  (6 scales, 37 items)
+single items   63,000 reused from Entry A, 7 item(s)
+sampling       temperature 1.6, top_p 0.95, guided True, seed 20260830
+call window    2026-08-30T06:17:55.180084+00:00  to  2026-08-30T08:13:40.928827+00:00
+parsed, first  100.0%
+  retries      none needed
+  filled       0 block(s) at the scale midpoint
+wall clock     115.8 min  (7.8 prompts/s)
+wrote sim/out/03_replies_hybrid.jsonl
+==========================================================================

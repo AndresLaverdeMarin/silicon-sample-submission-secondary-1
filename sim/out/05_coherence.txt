@@ -1,0 +1,92 @@
+==============================================================================
+STAGE 5 — COHERENCE, ENTRY A (item mode) AGAINST ENTRY B (hybrid)
+==============================================================================
+
+entry A  /home/jovyan/silicon-sample-submission/raw_data_deposit/tier1_raw_export.csv
+entry B  /home/jovyan/silicon-sample-submission-entryB/raw_data_deposit/tier1_raw_export_hybrid.csv
+
+Entry A asks all 44 items in 44 independent prompts.
+Entry B asks the 6 multi-item scales as BLOCKS, one prompt for one
+scale, and REUSES Entry A unchanged for the 7 single items.
+
+------------------------------------------------------------------------------
+CONTROL ONLY   n = 1,000 respondents
+------------------------------------------------------------------------------
+scale            entry   k  alpha  mean r  itemSD  compSD  ratio
+------------------------------------------------------------------------------
+trust            A      12  0.564   0.097    32.8    13.6  0.416
+trust            B      12  0.986   0.859    19.6    18.3  0.933
+                 human  12  0.930   0.525                  0.752   Cologna et al. 2025, same 12-item scale
+
+policy_specific  A       7  0.203   0.036    30.8    12.8  0.416
+policy_specific  B       7  0.940   0.708    17.9    15.6  0.871
+                 human   3  0.944   0.850    30.6    29.1  0.950   Voelkel Policies_Post, r 95% [0.82,0.87]
+
+behavior         A       6  0.110   0.020    30.8    13.2  0.429
+behavior         B       6  0.792   0.387    20.2    14.2  0.702
+                 human   4  0.906   0.715    33.1    29.3  0.885   Voelkel Intent_Post, r 95% [0.69,0.74]
+
+inst_trust       A       5  0.215   0.051    28.5    14.0  0.492
+inst_trust       B       5  0.895   0.624    17.7    14.9  0.842
+
+policy_role      A       4  0.163   0.046    31.2    16.6  0.534
+policy_role      B       4  0.915   0.734    19.5    17.4  0.895
+                 human   3  0.944   0.850    30.6    29.1  0.950   Voelkel Policies_Post, r 95% [0.82,0.87]
+
+concern          A       3  0.242   0.096    31.2    19.7  0.631
+concern          B       3  0.948   0.861    23.8    22.7  0.952
+                 human   3  0.967   0.907    32.2    31.2  0.969   Voelkel Concern_Post, r 95% [0.90,0.92]
+
+------------------------------------------------------------------------------
+ALL 17 CONDITIONS   n = 9,000 respondents
+------------------------------------------------------------------------------
+scale            entry   k  alpha  mean r  itemSD  compSD  ratio
+------------------------------------------------------------------------------
+trust            A      12  0.567   0.099    31.6    13.2  0.417
+trust            B      12  0.984   0.842    17.5    16.2  0.926
+                 human  12  0.930   0.525                  0.752   Cologna et al. 2025, same 12-item scale
+
+policy_specific  A       7  0.329   0.065    29.9    13.3  0.446
+policy_specific  B       7  0.916   0.624    17.2    14.3  0.829
+                 human   3  0.944   0.850    30.6    29.1  0.950   Voelkel Policies_Post, r 95% [0.82,0.87]
+
+behavior         A       6  0.180   0.035    30.6    13.5  0.443
+behavior         B       6  0.777   0.372    19.8    13.7  0.689
+                 human   4  0.906   0.715    33.1    29.3  0.885   Voelkel Intent_Post, r 95% [0.69,0.74]
+
+inst_trust       A       5  0.326   0.085    27.9    14.5  0.522
+inst_trust       B       5  0.906   0.653    16.8    14.3  0.854
+
+policy_role      A       4  0.201   0.059    30.1    16.3  0.543
+policy_role      B       4  0.892   0.686    18.0    15.7  0.875
+                 human   3  0.944   0.850    30.6    29.1  0.950   Voelkel Policies_Post, r 95% [0.82,0.87]
+
+concern          A       3  0.247   0.098    30.6    19.4  0.632
+concern          B       3  0.937   0.836    21.2    20.0  0.943
+                 human   3  0.967   0.907    32.2    31.2  0.969   Voelkel Concern_Post, r 95% [0.90,0.92]
+
+------------------------------------------------------------------------------
+OVERSHOOT GUARD — correlation BETWEEN the 6 scale means.
+Block prompting must make each scale coherent, not make all 37
+items one thing. The human value is for Voelkel's 4 scales.
+------------------------------------------------------------------------------
+  entry A  mean r between the 6 scale means: 0.265
+  entry B  mean r between the 6 scale means: 0.483
+  human    mean r between Voelkel's 4 scale means: 0.665   (n = 13,408)
+
+------------------------------------------------------------------------------
+EXTREME ANSWERS — share exactly 0 or exactly 100
+Block prompting drives these down. The 7 single items are reused
+from Entry A, so their share must be IDENTICAL in the two entries.
+------------------------------------------------------------------------------
+  entry A  37 block items  14.7%     5 single sliders  15.2%
+  entry B  37 block items   0.4%     5 single sliders  15.2%
+  human    Voelkel, 13 items  18.1%
+
+==============================================================================
+READ IT LIKE THIS
+  Entry B is doing its job if mean r rises from Entry A toward the
+  human value ON THE SAME KIND OF SCALE, the composite ratio rises
+  with it, the overshoot guard stays near the human number, and
+  the single-item extreme share is unchanged.
+==============================================================================
