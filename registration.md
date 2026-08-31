@@ -14,16 +14,16 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
 > was deleted. That form is in git history at commit `aa4e060`. Nothing from it is carried into the
 > answers deposited here.
 
-> **This form covers the `secondary-1` entry.** It is one of two entries from `team_27`. The
-> `primary` entry uses the same population, the same stimuli, the same model and the same hardware,
+> **This form covers the `primary` entry.** It is one of two entries from `team_27`. The
+> `secondary-1` entry uses the same population, the same stimuli, the same model and the same hardware,
 > and asks every item in its own prompt. This entry asks each multi-item scale as one block. That is
 > the only factor that differs, and the pair is designed to bracket the human coherence value from
 > below and above. See E.2.
 
 > **Every fact the run produces is filled in**, from `sim/out/03_report_hybrid.txt`,
-> `sim/out/05_coherence.txt` and `sim/out/run_entryB.log`. Two items are still `PENDING`, and both
-> need a person, not a run: the competing-interests declaration (I.1) and the blinding attestation
-> (I.3). Both must be signed by the members named in 0.1 before the deposit.
+> `sim/out/05_coherence.txt` and `sim/out/run_entryB.log`. Every registration item is complete.
+> Andres Laverde Marin signs the competing-interests declaration (I.1) and the blinding attestation
+> (I.3) for `team_27`, and sends the benchmark's own exposure declaration with the deposit email.
 
 ---
 
@@ -31,10 +31,10 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
 - **0.1 Team ★** — name, the one or two members (teams are at most two, unless a larger team was approved on request), affiliations, corresponding contact:
   Team `team_27`, two members.
   Andres Laverde Marin, Joint Research Centre, European Commission, ORCID
-  [0000-0002-9578-4412](https://orcid.org/0000-0002-9578-4412). Corresponding contact:
-  andreslaverdemarin@gmail.com.
+  [0000-0002-9578-4412](https://orcid.org/0000-0002-9578-4412), andres.laverde-marin@ec.europa.eu.
+  **Corresponding contact, and the member who deposits and signs for the team.**
   Giordano De Marzo, University of Konstanz, ORCID
-  [0000-0002-3127-5336](https://orcid.org/0000-0002-3127-5336).
+  [0000-0002-3127-5336](https://orcid.org/0000-0002-3127-5336), giordano.de-marzo@uni-konstanz.de.
   The same values are in `metadata.json` (`team_name`, `contact`, `creators`). Both ORCIDs pass the
   ISO 7064 MOD-11-2 checksum.
 - **0.2 Plain-language summary ★** — one paragraph, what the approach does (not how):
@@ -53,9 +53,9 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   our own hardware. The 44 raw survey items are generated and the 13 scored outcomes are computed by
   the benchmark's own `scripts/clean.R`.
   **Survey administration is HYBRID, and this is the one factor that separates this entry from our
-  `primary` entry.** The 6 multi-item outcomes (37 items) are asked as **blocks**: every item of one
+  `secondary-1` entry.** The 6 multi-item outcomes (37 items) are asked as **blocks**: every item of one
   scale is on one page and is answered in one forward pass. The 7 single-item outcomes are asked
-  **one item for each call**, and their values are **reused unchanged from the `primary` entry**, not
+  **one item for each call**, and their values are **reused unchanged from the `secondary-1` entry**, not
   regenerated. Persona construction, stimulus, model, hardware and the persona-to-condition
   assignment are identical in the two entries. See E.2.
 - **0.4 Pipeline diagram** — ordered steps from raw inputs to submitted file:
@@ -68,7 +68,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
      `sim/out/00_materials.json`.
   4. `sim/01_persona_characteristics.py` — write the 9,000-row persona table
      (`sim/out/01_personas.csv`) and its self-check (`sim/out/01_report.txt`).
-  5. `sim/03_generate_replies.py` — the `primary` entry's run: 9,000 respondents x 44 items =
+  5. `sim/03_generate_replies.py` — the `secondary-1` entry's run: 9,000 respondents x 44 items =
      396,000 generations, one prompt for each item. Writes `sim/out/03_replies.jsonl`. This entry
      takes its 7 single-item outcomes (63,000 answers) from that file, unchanged.
   6. `sim/03b_generate_hybrid.py` — this entry's run: 9,000 respondents x 6 scales = **54,000 block
@@ -78,7 +78,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
      respondent, 44 raw item columns, into `raw_data_deposit/tier1_raw_export_hybrid.csv`.
   8. `make clean INPUT=raw_data_deposit/tier1_raw_export_hybrid.csv` — the benchmark's own
      `scripts/clean.R` builds every composite and writes
-     `predictions/team_27_T1_secondary-1_v1.csv`.
+     `predictions/team_27_T1_primary_v1.csv`.
   9. `make manifest` then `make check` — SHA-256 into `metadata.json`, then the organizers' validator.
   **Stage 2 (`sim/02_write_personas.py`) is NOT in this pipeline.** It writes prose personas with a
   second model. It was measured and dropped; see D.2.
@@ -94,7 +94,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   **Two stages of 0.4 produce submitted values, and both are answer stages.** Step 6
   (`sim/03b_generate_hybrid.py`) generates the 333,000 values of the 6 multi-item outcomes, as 54,000
   scale blocks. Step 5 (`sim/03_generate_replies.py`) generated the 63,000 values of the 7
-  single-item outcomes; that run belongs to our `primary` entry and this entry **reuses its answers
+  single-item outcomes; that run belongs to our `secondary-1` entry and this entry **reuses its answers
   unchanged rather than regenerating them**, so it is declared here as a stage of this entry too.
   Together they are the 396,000 submitted values. One model, `Qwen/Qwen3.8-27B`, wrote every one.
   Every other step is deterministic Python or R. No language model builds the population, renders a
@@ -120,7 +120,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
      item of that scale, because `make check` fails on one `NA`.
   **Neither exception was used in this entry's own run: 54,000 of 54,000 blocks parsed on the first
   pass, no retry round ran, and no block was filled** (`sim/out/03_report_hybrid.txt`). The reused
-  single-item answers carry the step-5 run's own retry record, reported in the `primary` entry's
+  single-item answers carry the step-5 run's own retry record, reported in the `secondary-1` entry's
   form. Nothing else is repaired.
 
 ## B · Model / system details (once per model)
@@ -134,7 +134,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   Local inference on our own hardware. No API, no provider, no account, no key. The interface is a
   **text completion, not a chat turn**: the chat template is not applied, and the model continues a
   survey page. A **block** prompt ends with `You answer:` and the model writes one numbered line for
-  each item of that scale; a **single-item** prompt ends with `You choose: '`, as in the `primary`
+  each item of that scale; a **single-item** prompt ends with `You choose: '`, as in the `secondary-1`
   entry.
   **Statelessness, stated exactly.** The 396,000 submitted values come from 117,000 generations:
   54,000 block generations and 63,000 single-item generations. Every **generation** is stateless
@@ -143,9 +143,9 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   writes the whole scale in one forward pass and attends to the answers it has already written. No
   information crosses from one scale to another, or from one respondent to another.
   Call-date windows, both in UTC. **The two are stated separately, because 63,000 of the 396,000
-  submitted values were generated in the `primary` entry's run and are reused here unchanged.**
+  submitted values were generated in the `secondary-1` entry's run and are reused here unchanged.**
   Block prompts, the 37 multi-item outcomes: **2026-08-30T06:17:55Z to 2026-08-30T08:13:40Z**.
-  Single items, the 7 stand-alone outcomes, reused from the `primary` run:
+  Single items, the 7 stand-alone outcomes, reused from the `secondary-1` run:
   **2026-08-29T12:07:30Z to 2026-08-29T17:40:33Z**.
 - **B.3 Configuration** — temperature, top-p/top-k, max tokens, penalties, stop sequences, seeds, reasoning effort, completions per item:
   **Block prompts (37 items, this entry's own run).** `temperature 1.6`, `top_p 0.95`, no top-k, no
@@ -155,7 +155,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   `regex_for(k)`, which concatenates one literal line for each item of the scale —
   `1: (100|[0-9]{1,2})\n2: (100|[0-9]{1,2})\n` and so on up to `k`. **One
   completion per respondent and scale.**
-  **Single items (7 items, reused from the `primary` run).** `temperature 1.0`, `top_p 0.95`,
+  **Single items (7 items, reused from the `secondary-1` run).** `temperature 1.0`, `top_p 0.95`,
   `max_tokens 64`, stop sequence `'` (the closing quote), `seed 20260828`, no structured output.
   Reasoning: not applicable in either case — these are completions, and no thinking mode is enabled.
   *Why 1.6 and why a regex.* At temperature 1.6 a free-running model broke the answer format in 64
@@ -211,12 +211,18 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   and was chosen for Tier 1. **None of the six answered any item of this megastudy, and none
   contributed a submitted value.** This comparison ran in a separate working project, `modelbench`,
   which is **not part of this deposit** — see K.1. What is deposited is its conclusion: the choice of
-  model 1. The ranking and the rest of the search are described in J.1.
+  model 1. The ranking and the rest of the search are described in J.1. **Where these names appear
+  in the deposited code.** `sim/03_generate_replies.py` holds a vLLM engine-settings table that
+  names `google/gemma-4-26B-A4B-it`, `google/gemma-4-E4B-it` and `google/gemma-3-27b-it`, and
+  `sim/02_write_personas.py` names `google/gemma-4-26B-A4B-it` as the stage-2 persona writer. Both
+  are configuration only. Stage 2 is not in the submitted pipeline (D.2), and **only
+  `Qwen/Qwen3.8-27B` answered a submitted item**. The files are kept as they ran, because K.1
+  claims the deposited code rebuilds every prompt byte for byte.
 
 ## C · Prompts
 - **C.1 Exact prompts** — verbatim text or link to deposited file; were they iteratively refined? pre-specified vs in response to outputs:
   Two builders, one for each format. Single items use `sim/lib/answer_prompt.py::build_prompt`,
-  unchanged from the `primary` entry: the persona sentence, the condition text the respondent read,
+  unchanged from the `secondary-1` entry: the persona sentence, the condition text the respondent read,
   the item question, and the item's scale. Blocks use
   `sim/03b_generate_hybrid.py::build_block_prompt`, which **keeps that wording exactly** and changes
   only two things: it lists every item of the scale as a numbered question on the page, and it ends
@@ -234,7 +240,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   and not given any instruction about how to answer.
 - **C.3 Prompt-design rationale** — brief rationale for the prompt design: why prompts were structured as they were, and the reasoning behind major design choices (recommended, not required):
   *One page for each scale, and one prompt for each single item.* Ashokkumar et al.'s own format is
-  one item for each prompt, and our `primary` entry keeps it. This entry departs from it for the 6
+  one item for each prompt, and our `secondary-1` entry keeps it. This entry departs from it for the 6
   multi-item outcomes, for one measured reason. Independent calls make a respondent's answers to one
   scale nearly independent of each other: mean inter-item correlation 0.10 on the 12-item trust
   scale, against about 0.53 for real people on the identical scale (Cologna et al. 2025, alpha
@@ -312,7 +318,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   sees the answers it has already written for that scale while it writes the later ones.
   *Single items.* `trust_post_1`, `distrust_1`, `funding_5`, `belief_post_1`, `policy_general_1`,
   `donation` and `newsletter` are each asked in their own prompt, with no carry-over. **These 63,000
-  values are reused from the `primary` entry, not regenerated.** Each was already asked in an
+  values are reused from the `secondary-1` entry, not regenerated.** Each was already asked in an
   independent prompt, so its answer does not depend on the other items; re-asking would add sampling
   noise between the two entries and nothing else. Reuse makes the two entries differ by exactly one
   factor.
@@ -324,10 +330,10 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   its labelled midpoint, because the midpoint is part of the instrument. Attention and comprehension
   items are not generated — the benchmark does not score them.
   **What this buys, and what it costs. Both are measured, and both are stated plainly.**
-  Against the `primary` entry, over all 9,000 respondents (`sim/05_coherence.py`,
+  Against the `secondary-1` entry, over all 9,000 respondents (`sim/05_coherence.py`,
   `sim/out/05_coherence.txt`):
 
-  | measure | `primary` | this entry | human reference |
+  | measure | `secondary-1` | this entry | human reference |
   | --- | --- | --- | --- |
   | mean inter-item r, 12-item trust | 0.099 | 0.842 | ~0.525 (Cologna et al. 2025, alpha 0.93) |
   | mean inter-item r, 3-item concern | 0.098 | 0.836 | 0.907 (Voelkel et al. 2025) |
@@ -346,7 +352,10 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   cent, which confirms that the reuse is exact.
   *Why the pair is still the useful thing.* Our two entries hold every other factor fixed and
   bracket the human coherence value from below (0.10) and above (0.84). Neither is calibrated to it,
-  because the human value for these items is sealed.
+  because the human value for these items is sealed. **The bracket applies to the 6 multi-item
+  outcomes only.** The 7 single-item outcomes are byte-identical in the two entries, because this
+  entry reuses them unchanged. On those 7 of the 13 scored outcomes the two entries submit the
+  same values.
 - **E.3 Response elicitation** — free text / constrained choice / structured output / token log-probabilities (if logprobs: normalization & mapping):
   Two regimes, one for each format.
   *Blocks — constrained structured output, then a strict parse.* vLLM `StructuredOutputsParams`
@@ -355,7 +364,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   order the questions were asked and accepts a block only if every number is inside its item's
   scale. The regex constrains the **shape** of the answer, never its value: every number the scale
   allows stays reachable, and sampling runs normally inside it.
-  *Single items — free text, then a strict parse.* Unchanged from the `primary` entry. The model
+  *Single items — free text, then a strict parse.* Unchanged from the `secondary-1` entry. The model
   completes the open quote and stops at the closing quote.
   `sim/lib/answer_prompt.py::parse` takes the first number in the completion and accepts it only if
   it is inside that item's scale: 0 to 100 for the 42 sliders, 0 to 10 whole dollars for
@@ -393,12 +402,15 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   Effective N per condition: 500 for each intervention and 1,000 for control, with no exclusions.
   **Block run, measured (`sim/out/03_report_hybrid.txt`): 54,000 of 54,000 blocks parsed on the
   first pass — 100.0 per cent. No retry round was needed and no block was filled at the midpoint.**
-  That is what the regex of E.3 buys. The 63,000 reused single-item answers carry the `primary`
+  That is what the regex of E.3 buys. The 63,000 reused single-item answers carry the `secondary-1`
   entry's own parse record, which is reported in that entry's form.
 - **G.3 Calibration corrections** — any post-hoc scaling/shifting/debiasing and exactly what data it was fit on (cross-ref H/I):
   **None.** No scaling, no shifting, no debiasing, no clamping, no rounding, no reweighting. The
   submitted values are the parsed generations, and the composites are the benchmark's own arithmetic
   over them. No human outcome data, from this study or any other, was used to adjust any value.
+  This item is about the adjustment of values. Human data from the public Voelkel study did
+  select design settings, among them the block format and the sampling temperature. See B.3
+  and J.1.
 
 ## H · Learning and conditioning components
 - **H.1 Fine-tuning data** — exact corpus (hashes/DOIs), hyperparameters, checkpoints:
@@ -410,13 +422,19 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
 
 ## I · Data inputs, blinding, and competing interests
 - **I.1 Competing interests ★** — funding, in-kind compute/model access, relationships with LLM-interested entities:
-  `PENDING (team declaration)` — to be completed and signed by the members named in 0.1. Facts known
-  to the pipeline: the answering model is open weights, downloaded publicly and run on the team's own
-  hardware; no compute, credits or model access were granted by any model provider for this
-  benchmark; the one hosted model used for validation, `qwen/qwen3.8-flash` through OpenRouter
-  (J.1, K.3), was paid for out of pocket at a cost below one United States dollar. Institutional affiliations are the Joint Research Centre of
-  the European Commission and the University of Konstanz. Any funding source and any relationship
-  with an entity with an interest in language-model performance must be listed here by the team.
+  **Declared by the team. There are no competing interests.** No funding was received for this
+  entry. No compute, credits, model access or other in-kind support was given by any language-model
+  provider, or by any other entity with an interest in language-model performance. The answering
+  model, `Qwen/Qwen3.8-27B`, is open weights. The team downloaded it publicly and ran it on its own
+  hardware. The one hosted model used for validation, `qwen/qwen3.8-flash` through OpenRouter
+  (J.1, K.3), was paid for out of pocket at a cost below one United States dollar, and it
+  contributed no submitted value. The two members are employed by the Joint Research Centre of the
+  European Commission and by the University of Konstanz. Neither institution funded this entry, and
+  neither has a stake in the result. Neither member has a financial or advisory relationship with a
+  language-model provider. The benchmark's own exposure declaration carries the same statement. The
+  organizers ask for one such declaration for each team, signed by one member for everyone. Andres
+  Laverde Marin signs it for `team_27` and sends it with the deposit email to
+  janlukas.pfaender@gmail.com.
 - **I.2 External human data †** — all external human datasets that informed the approach anywhere (training/fine-tuning/retrieval/ICL/calibration):
   Four, and none of them contains any outcome of this study.
   1. **General Social Survey** (2018, 2021, 2022, 2024), used only to build the demographic profiles
@@ -430,7 +448,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
      Code Ocean capsule 9843791. It is our method reference and our scoring reference, in three
      distinct ways, none of which puts a number into a prediction:
      a. **Method.** The prompt structure and the one-item-per-call format come from that paper. Our
-        `primary` entry keeps that format; this entry departs from it for the 6 multi-item outcomes,
+        `secondary-1` entry keeps that format; this entry departs from it for the 6 multi-item outcomes,
         and C.3 says why.
      b. **Measured effects of other studies.** The capsule's archive holds the published arm effects
         and their standard errors for 4 megastudies (`voelkel2025`, `doell2024`, `zickfeld2025`,
@@ -442,12 +460,15 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
      **No value from the capsule enters any prediction**, and it holds no outcome of this study.
   No outcome data from this study, or from any pilot of it, informed any part of the pipeline.
 - **I.3 Blinding attestation ★** — **mandatory.** Signed attestation that no team member accessed, solicited, or was shown any human outcome data from this study, including pilots, before the prediction lock:
-  `PENDING (team signature)` — **this attestation must be signed by the members named in 0.1, with a
-  date. It is not signed here on the team's behalf.**
-  Prepared text, to be signed: *"We attest that no member of team_27 accessed, solicited, or was
-  shown any human outcome data from the target megastudy, including any pilot of it, at any time
-  before the prediction lock."*
-  Supporting facts for the signatories: the pipeline reads only the files listed in H.2, all of which
+  **Attested.** *"We attest that no member of team_27 accessed, solicited, or was shown any human
+  outcome data from the target megastudy, including any pilot of it, at any time before the
+  prediction lock."*
+  Signed for `team_27` by **Andres Laverde Marin** (andres.laverde-marin@ec.europa.eu),
+  **2026-08-31**. Giordano De Marzo (giordano.de-marzo@uni-konstanz.de) is the second member and is
+  covered by this attestation. The benchmark's own exposure declaration carries the same statement.
+  The organizers ask for one such declaration for each team, signed by one member for everyone.
+  Andres Laverde Marin signs it and sends it with the deposit email to janlukas.pfaender@gmail.com.
+  Supporting facts: the pipeline reads only the files listed in H.2, all of which
   are benchmark materials that contain no outcome data; no network request of any kind is made during
   generation, because the model is local; and `blinding_attestation` in `metadata.json` is `true`.
 - **I.4 Contamination note †** — training cutoff of every model vs public release dates of this project's materials; note any known exposure:
@@ -483,7 +504,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   *The decisions this produced.* Drop the prose persona writer (D.2, measured in v15). Do not average
   several draws for each person (B.7, measured in v16). For **this** entry, ask each multi-item scale
   as one block (C.3, E.2), at temperature 1.6 with a shape regex (B.3), and reuse the single items
-  from the `primary` entry unchanged.
+  from the `secondary-1` entry unchanged.
   *How the block format was chosen, all on public data.* v17 tested a stance-first prompt, which
   failed; then one prompt for each scale, which worked. v19 tested `top_p` 1.0 against 0.95. v20
   tested guided decoding against free decoding at temperatures 1.4 and 1.6, and showed that free
@@ -492,11 +513,26 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   respondents are public. **No megastudy outcome was seen, because none exists.**
   *Effect recovery was measured after the design was fixed, not used to choose it.* We ran both
   entries' formats on Voelkel's 11 arms and scored them with the Ashokkumar capsule's own R code
-  (`metafor::rma.mv`). Mean over the 4 outcomes: `primary` r_raw 0.449 / r_adj 0.476; this entry
+  (`metafor::rma.mv`). Mean over the 4 outcomes: `secondary-1` r_raw 0.449 / r_adj 0.476; this entry
   r_raw 0.504 / r_adj 0.537; GPT-4, as published by Ashokkumar et al., 0.745 / 0.803. The two
   entries are the same within noise — with 10 arms a Pearson r has a 95 per cent interval of about
   [-0.46, +0.75]. **The measurement was made to check that the block format does not damage effect
-  recovery, and it does not. It did not select the format.**
+  recovery, and it does not. It did not select the format. It did select which entry the
+  team calls `primary`; see the next paragraph.**
+  *The `primary` label was set on 2026-08-31, after these measurements. We declare it as a
+  post-hoc order.* The two entries were both complete before any of these numbers were read. The
+  numbers changed no value in either prediction file. They changed only which entry the team calls
+  its best. `modelbench/random_baseline_entryAB.py` adds a permutation test on the same Voelkel
+  arms: shuffle our 10 arm labels 20,000 times, the same shuffle in all four outcomes, and score
+  again. Against the archive's published effects, this entry gives mean r +0.505, against a null 95th
+  percentile of +0.411 (p = 0.018); the `secondary-1` entry gives +0.450 against +0.418 (p = 0.038). Against effects
+  recomputed from Voelkel's raw OSF file, neither entry clears its null (p = 0.068 and p = 0.140),
+  and the two human estimates agree with each other at only r = 0.80 to 0.90. This entry is also
+  nearer to the human respondents on level error (mean absolute error 5.11 against 11.45 scale
+  points) and on distribution shape (density overlap 0.72 against 0.63, mean absolute correlation
+  between outcomes 0.605 against 0.238, where real people give 0.651). With 10 arms the gap between
+  the two entries is not significant, so the order is a judgement on consistent direction and not a
+  test result. No outcome data of the target study was used, because none exists.
   *A validation probe, disclosed for completeness.* `qwen/qwen3.8-flash` answered the same 60
   respondents and 44 items through a hosted endpoint, to test whether a much larger model uses the
   persona more. It produced higher inter-item coherence (0.581 against 0.120) and an equal
@@ -519,7 +555,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   **Everything that produced a submitted value is in this repository, and this repository is the
   deposit**: `population/` (the profiles) and `sim/` (the Tier-1 pipeline), with `sim/README.md` as
   the runbook. Running `population/` then `sim/` steps 00 to 04 rebuilds
-  `predictions/team_27_T1_secondary-1_v1.csv` from the deposited inputs, with no other repository
+  `predictions/team_27_T1_primary_v1.csv` from the deposited inputs, with no other repository
   needed.
   **What is deliberately NOT in this deposit.** The measurements that CHOSE the design — the
   model comparison in B (models 3 to 8) and the v15 to v21 format search in J.1 — ran in a separate
@@ -527,7 +563,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   step above, and no value they produced enters a prediction. They are reported here as results, and
   the deposit stands on its own without them.
   Link recorded in `metadata.json` → `code_repository`:
-  <https://github.com/AndresLaverdeMarin/silicon-sample-submission-secondary-1>. This entry has its **own** repository, separate from the `primary` entry's. **No secrets, no credentials and
+  <https://github.com/AndresLaverdeMarin/silicon-sample-submission-secondary-1>. This entry has its **own** repository, separate from the `secondary-1` entry's. The repository name holds the word `secondary-1` because it was made before the labels were set on 2026-08-31. The name is not the label; see J.1. **No secrets, no credentials and
   no API keys** are stored in the repository; the answering model is local and needs none.
   Determinism: the population uses seed `20260807` and rebuilds byte for byte; every prompt rebuilds
   byte for byte from deposited inputs; the block sampler uses seed `20260830` and the single-item
@@ -540,7 +576,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   the git repository, so it is a separate Zenodo upload linked from this deposit.
   SHA-256 `2464aac12dba37a17bb1b11e42807ffaa6c07be50609826b44740decb2a32473`, 76,119,278 bytes,
   396,000 records, written 2026-08-30T08:13:40Z.
-  The 63,000 reused single-item answers also stand in the `primary` entry's own log,
+  The 63,000 reused single-item answers also stand in the `secondary-1` entry's own log,
   `sim/out/03_replies.jsonl`, SHA-256
   `b18b26a766933b8c1a1f46726b27e486eebe7252fbbafd2800df3e370904f75e`, 70,825,249 bytes, so the reuse
   is checkable line by line.
@@ -553,7 +589,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   start-up about 1.6 minutes. Sustained throughput 7,568 input tokens and 303 output tokens for each
   second, so about **51.8 million input tokens and 2.07 million output tokens**. Zero retries, so no
   generation was spent twice.
-  *Carried in from the `primary` run.* 63,000 single-item generations, already counted in that
+  *Carried in from the `secondary-1` run.* 63,000 single-item generations, already counted in that
   entry's form. This entry regenerated none of them.
   *Validation cost outside the submission.* One hosted model was used, `qwen/qwen3.8-flash` through
   OpenRouter (provider: Alibaba Cloud Int.), `/api/v1/chat/completions`, thinking disabled,
